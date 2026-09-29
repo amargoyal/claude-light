@@ -82,7 +82,7 @@ interface Live {
  * or a command, so `includes('approve')` fired on notifications that were only
  * talking about approving something.
  */
-function isPermissionAsk(message: string): boolean {
+function isPermissionAsk(message: string, type?: string): boolean {
   const m = message.toLowerCase();
   // "Claude needs your permission to use Bash"
   return /needs? your permission/.test(m) || /permission to (use|run)\b/.test(m);
