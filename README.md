@@ -182,7 +182,8 @@ one colour that must never be a guess.
 
 Two things and only two things turn the light yellow: a tool call this app is
 holding open (see *Answering from the island* below), and Claude Code's own
-permission prompt sitting in the terminal with numbered choices. Claude Code also
+permission prompt sitting in the terminal with numbered choices — including the
+one that ends plan mode, asking you to approve the plan. Claude Code also
 sends a `Notification` about a minute after it stops to say nobody has typed
 anything yet — that one is deliberately ignored. It is not a question, it is a
 finished session whose user is reading the answer, and it used to leave every
