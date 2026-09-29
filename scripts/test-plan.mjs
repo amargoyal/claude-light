@@ -61,6 +61,10 @@ try {
   hook(idle, 'idle', 'Stop');
   hook(idle, 'idle', 'Notification', { message: 'Claude is waiting for your input', notificationType: 'idle_prompt' });
   assert.equal(status(idle, 'idle'), 'done', 'an idle_prompt leaves a finished session red');
+  const busy = fresh('busy');
+  hook(busy, 'busy', 'UserPromptSubmit');
+  hook(busy, 'busy', 'Notification', { message: 'Claude is waiting for your input', notificationType: 'idle_prompt' });
+  assert.equal(status(busy, 'busy'), 'working', 'an idle_prompt is no question mid-turn either');
 
   console.log('Plan checks passed.');
 } finally {
