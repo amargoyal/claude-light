@@ -34,6 +34,17 @@ try {
   const hook = (store, id, event, extra = {}) => store.onHook({ event, sessionId: id, cwd: '/tmp/plan', ...extra });
   const status = (store, id) => store.snapshot().sessions.find((s) => s.id === id)?.status;
 
+  const PLAN = 'Claude Code needs your approval for the plan';
+
+  // Plan mode, as Claude Code 2.1 sends it: ExitPlanMode starts, then the
+  // dialog's Notification arrives as a permission_prompt.
+  const planned = fresh('planned');
+  hook(planned, 'planned', 'UserPromptSubmit');
+  hook(planned, 'planned', 'PreToolUse', { toolName: 'ExitPlanMode' });
+  assert.equal(status(planned, 'planned'), 'working', 'writing the plan is work');
+  hook(planned, 'planned', 'Notification', { message: PLAN, notificationType: 'permission_prompt' });
+  assert.equal(status(planned, 'planned'), 'asking', 'a plan waiting for approval is yellow');
+
   console.log('Plan checks passed.');
 } finally {
   fs.rmSync(root, { recursive: true, force: true });
