@@ -15,10 +15,11 @@ import { createRequire } from 'node:module';
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), 'notchlight-plan-'));
 try {
-  await build({ entryPoints: ['src/main/store.ts'], bundle: true, platform: 'node', format: 'cjs',
+  await build({ entryPoints: ['src/main/store.ts', 'src/main/hookServer.ts'], bundle: true, platform: 'node', format: 'cjs',
     outExtension: { '.js': '.cjs' }, outdir: root, logLevel: 'error' });
   const require = createRequire(import.meta.url);
   const { Store } = require(path.join(root, 'store.cjs'));
+  const { HookServer } = require(path.join(root, 'hookServer.cjs'));
 
   const facts = (sessionId) => {
     const at = Date.now() - 1000;
