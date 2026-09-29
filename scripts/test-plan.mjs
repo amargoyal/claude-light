@@ -20,6 +20,20 @@ try {
   const require = createRequire(import.meta.url);
   const { Store } = require(path.join(root, 'store.cjs'));
 
+  const facts = (sessionId) => {
+    const at = Date.now() - 1000;
+    return { sessionId, cwd: '/tmp/plan', file: '', project: 'plan', title: '', startedAt: at - 60_000,
+      lastAt: at, mainLastAt: at, tokens: 0, agents: [], busy: false, tail: [] };
+  };
+  /** A store with one session in it, its transcript already seen. */
+  const fresh = (id) => {
+    const store = new Store();
+    store.facts.set(id, facts(id));
+    return store;
+  };
+  const hook = (store, id, event, extra = {}) => store.onHook({ event, sessionId: id, cwd: '/tmp/plan', ...extra });
+  const status = (store, id) => store.snapshot().sessions.find((s) => s.id === id)?.status;
+
   console.log('Plan checks passed.');
 } finally {
   fs.rmSync(root, { recursive: true, force: true });
