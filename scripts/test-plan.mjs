@@ -37,6 +37,14 @@ try {
 
   const PLAN = 'Claude Code needs your approval for the plan';
 
+  // The kind has to survive the socket before the store can use it.
+  const server = new HookServer();
+  let heard = null;
+  server.on('hook', (e) => (heard = e));
+  server.dispatch({ hook_event_name: 'Notification', session_id: 's', message: PLAN, notification_type: 'permission_prompt' },
+    { end() {} });
+  assert.equal(heard?.notificationType, 'permission_prompt', 'the hook server keeps notification_type');
+
   // Plan mode, as Claude Code 2.1 sends it: ExitPlanMode starts, then the
   // dialog's Notification arrives as a permission_prompt.
   const planned = fresh('planned');
