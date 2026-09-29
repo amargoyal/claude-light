@@ -13,7 +13,7 @@
  */
 import { spawnSync } from 'node:child_process';
 
-const CHECKS = ['typecheck', 'helpers:check', 'test:today', 'test:swipe', 'test:battery', 'test:displays', 'test:companion', 'test:preview', 'test:render', 'test:backoff'];
+const CHECKS = ['typecheck', 'helpers:check', 'test:today', 'test:swipe', 'test:battery', 'test:displays', 'test:companion', 'test:preview', 'test:render', 'test:backoff', 'test:plan'];
 
 const run = name => spawnSync('npm', ['run', '--silent', name], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
 

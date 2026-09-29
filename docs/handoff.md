@@ -402,6 +402,18 @@ Not judged by ear in this session — the owner's check is **Bars in time** in
 [Native checks](native-checks.md), and `levelsOffsetMs` is still the knob if
 Core Audio's Bluetooth estimate is wrong on a particular pair.
 
+### 21. A plan waiting for approval is yellow — implemented September 29, 2026
+Finishing a plan in plan mode left the light green while Claude Code waited
+for a yes. The dialog does send a `Notification`, but its words are "Claude
+Code needs your approval for the plan", and `isPermissionAsk` in
+`src/main/store.ts` only knew "needs your permission".
+
+The hook server now keeps the payload's `notification_type`, and a
+`permission_prompt` is a question whatever it says — Claude Code 2.1 sends that
+kind for every dialog waiting on a person, and `idle_prompt` for the nudge
+after a finished turn. The plan's wording is matched too, for a Claude Code too
+old to send a kind. `npm run test:plan` covers it, and runs in `npm run check`.
+
 ## Things to know before touching the music code
 
 - `SpotifyPlayer` serializes every command and status read through one promise

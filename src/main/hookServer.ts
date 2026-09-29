@@ -25,6 +25,8 @@ export interface HookEvent {
   toolName?: string;
   toolInput?: Record<string, unknown>;
   message?: string;
+  /** Claude Code's own kind for a Notification, e.g. `permission_prompt`. */
+  notificationType?: string;
   prompt?: string;
   reason?: string;
   /** The `claude` process the hook ran under, reported by the hook client. */
@@ -114,6 +116,7 @@ export class HookServer extends EventEmitter {
       toolName: typeof p?.tool_name === 'string' ? p.tool_name : undefined,
       toolInput: p?.tool_input && typeof p.tool_input === 'object' ? p.tool_input : undefined,
       message: typeof p?.message === 'string' ? p.message : undefined,
+      notificationType: typeof p?.notification_type === 'string' ? p.notification_type : undefined,
       prompt: typeof p?.prompt === 'string' ? p.prompt : undefined,
       reason: typeof p?.reason === 'string' ? p.reason : undefined,
       pid: Number.isInteger(p?.notchlight?.pid) && p.notchlight.pid > 1 ? p.notchlight.pid : undefined

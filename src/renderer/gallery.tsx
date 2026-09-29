@@ -130,6 +130,13 @@ const askingTerminal = session({
   ask: { ...asking.ask!, id: 'ask-2', command: '', message: 'Claude needs your permission to use Write', answerable: false }
 });
 
+const askingPlan = session({
+  ...asking,
+  id: 'f2c',
+  agents: [agent('main', 'main', 'Claude Code needs your approval for the plan', 'ask', 'asking', 18_700, 725)],
+  ask: { ...asking.ask!, id: 'ask-3', tool: 'permission', command: '', message: 'Claude Code needs your approval for the plan', answerable: false }
+});
+
 const done = session({
   id: 'f3',
   project: 'notes-api',
@@ -421,6 +428,14 @@ function App() {
             h={300}
           >
             <Island snap={snap([askingTerminal])} hovering open />
+          </Card>
+          <Card
+            title="The plan"
+            note="Plan mode is finished and Claude Code wants a yes before it starts. Yellow, like any other question."
+            w={600}
+            h={300}
+          >
+            <Island snap={snap([askingPlan])} hovering open />
           </Card>
         </Band>
 

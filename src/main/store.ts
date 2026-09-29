@@ -81,9 +81,23 @@ interface Live {
  * than on loose keywords. The message is free text that can quote a tool name
  * or a command, so `includes('approve')` fired on notifications that were only
  * talking about approving something.
+ *
+ * Newer Claude Code also says what kind of notification it is, and that is
+ * better than any wording: every dialog waiting on a person is sent as a
+ * `permission_prompt`, while the nudge after a finished turn is an
+ * `idle_prompt`. The kind wins when it is there; the wording is for a Claude
+ * Code old enough not to send one.
+ *
+ * The plan is the case that forced this. Finishing a plan in plan mode asks
+ * "Claude Code needs your approval for the plan" — a question with numbered
+ * choices like any other, in words the match below did not know, so the light
+ * stayed green while the whole session waited on a yes.
  */
-function isPermissionAsk(message: string): boolean {
+function isPermissionAsk(message: string, type?: string): boolean {
+  if (type === 'permission_prompt') return true;
   const m = message.toLowerCase();
+  // "Claude Code needs your approval for the plan"
+  if (/needs? your approval for the plan/.test(m)) return true;
   // "Claude needs your permission to use Bash"
   return /needs? your permission/.test(m) || /permission to (use|run)\b/.test(m);
 }
@@ -192,7 +206,7 @@ export class Store extends EventEmitter {
         this.clearIfStale(s);
         break;
       case 'Notification': {
-        if (!isPermissionAsk(e.message || '')) break;
+        if (!isPermissionAsk(e.message || '', e.notificationType)) break;
         // A permission prompt cannot appear after the turn ended — no tool runs
         // without a prompt first, and that arrives as UserPromptSubmit. Out of
         // order it is noise, and lighting a finished session yellow on noise is

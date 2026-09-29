@@ -41,6 +41,7 @@ record row `measure` prints into the table at the end.
 | Jump to terminal | with two Claude sessions in different terminal tabs, open the island on the one that is not frontmost and press Jump ↗ | `island jump to pid N: terminal Terminal tty ttysNNN` (or the host app's name) | that tab comes to the front |
 | Clipboard | switch the history on in Customize → Clipboard, copy two lines of text, take a screenshot to the clipboard (⌃⇧⌘4), then copy a password from a password manager | `notchlight clipboard capture on`, `pasteboardwatch listening` | the lines and the screenshot appear in the Clipboard face within a second; the password never does; `~/.notchlight/clipboard.json` is mode 0600 |
 | Keyboard | in a terminal, press ⌥⇧N, Tab a few times, press Escape | `island keyboard taken`, `island keyboard released: escape` | panel opens with a focus ring on the selected tab; Escape returns you to the terminal with the cursor where it was |
+| Plan approval | in Claude Code press Shift-Tab into plan mode, ask for a small plan, leave the approval dialog alone | nothing new | yellow about six seconds after the dialog opens (Claude Code waits that long before it notifies), card reads "Claude Code needs your approval for the plan"; green again once approved |
 
 ## Resource budget
 
