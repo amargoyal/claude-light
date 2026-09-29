@@ -84,7 +84,7 @@ try {
   refused.facts.set('refused', { ...facts('refused'), lastAt: later, mainLastAt: later });
   assert.notEqual(status(refused, 'refused'), 'asking', 'a refused plan does not stay yellow');
 
-  console.log('Plan checks passed.');
+  console.log('Plan checks passed: kind over the socket, plan yellow, card wording, back to green, wording alone, idle nudge, refused plan.');
 } finally {
   fs.rmSync(root, { recursive: true, force: true });
 }
