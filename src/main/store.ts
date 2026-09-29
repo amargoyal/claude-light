@@ -87,6 +87,11 @@ interface Live {
  * `permission_prompt`, while the nudge after a finished turn is an
  * `idle_prompt`. The kind wins when it is there; the wording is for a Claude
  * Code old enough not to send one.
+ *
+ * The plan is the case that forced this. Finishing a plan in plan mode asks
+ * "Claude Code needs your approval for the plan" — a question with numbered
+ * choices like any other, but not in the words matched below, so the light
+ * stayed green while the whole session waited on a yes.
  */
 function isPermissionAsk(message: string, type?: string): boolean {
   if (type === 'permission_prompt') return true;
