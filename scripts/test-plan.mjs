@@ -49,6 +49,12 @@ try {
   assert.equal(status(planned, 'planned'), 'working', 'approved, it goes back to work');
   assert.equal(planned.snapshot().sessions[0].ask, null, 'and the card goes with the question');
 
+  // A Claude Code old enough to send no kind at all: the wording has to do.
+  const worded = fresh('worded');
+  hook(worded, 'worded', 'UserPromptSubmit');
+  hook(worded, 'worded', 'Notification', { message: PLAN });
+  assert.equal(status(worded, 'worded'), 'asking', 'the plan wording alone is a question');
+
   console.log('Plan checks passed.');
 } finally {
   fs.rmSync(root, { recursive: true, force: true });
