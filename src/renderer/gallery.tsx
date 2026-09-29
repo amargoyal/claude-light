@@ -130,6 +130,12 @@ const askingTerminal = session({
   ask: { ...asking.ask!, id: 'ask-2', command: '', message: 'Claude needs your permission to use Write', answerable: false }
 });
 
+const askingPlan = session({
+  ...asking,
+  id: 'f2c',
+  ask: { ...asking.ask!, id: 'ask-3', tool: 'permission', command: '', message: 'Claude Code needs your approval for the plan', answerable: false }
+});
+
 const done = session({
   id: 'f3',
   project: 'notes-api',
