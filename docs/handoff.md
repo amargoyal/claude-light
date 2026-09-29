@@ -402,6 +402,12 @@ Not judged by ear in this session — the owner's check is **Bars in time** in
 [Native checks](native-checks.md), and `levelsOffsetMs` is still the knob if
 Core Audio's Bluetooth estimate is wrong on a particular pair.
 
+### 21. A plan waiting for approval is yellow — implemented September 29, 2026
+Finishing a plan in plan mode left the light green while Claude Code waited
+for a yes. The dialog does send a `Notification`, but its words are "Claude
+Code needs your approval for the plan", and `isPermissionAsk` in
+`src/main/store.ts` only knew "needs your permission".
+
 ## Things to know before touching the music code
 
 - `SpotifyPlayer` serializes every command and status read through one promise
