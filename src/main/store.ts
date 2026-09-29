@@ -194,7 +194,7 @@ export class Store extends EventEmitter {
         this.clearIfStale(s);
         break;
       case 'Notification': {
-        if (!isPermissionAsk(e.message || '')) break;
+        if (!isPermissionAsk(e.message || '', e.notificationType)) break;
         // A permission prompt cannot appear after the turn ended — no tool runs
         // without a prompt first, and that arrives as UserPromptSubmit. Out of
         // order it is noise, and lighting a finished session yellow on noise is
