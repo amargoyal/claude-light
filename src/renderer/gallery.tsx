@@ -133,6 +133,7 @@ const askingTerminal = session({
 const askingPlan = session({
   ...asking,
   id: 'f2c',
+  agents: [agent('main', 'main', 'Claude Code needs your approval for the plan', 'ask', 'asking', 18_700, 725)],
   ask: { ...asking.ask!, id: 'ask-3', tool: 'permission', command: '', message: 'Claude Code needs your approval for the plan', answerable: false }
 });
 
