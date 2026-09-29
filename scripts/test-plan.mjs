@@ -45,6 +45,9 @@ try {
   hook(planned, 'planned', 'Notification', { message: PLAN, notificationType: 'permission_prompt' });
   assert.equal(status(planned, 'planned'), 'asking', 'a plan waiting for approval is yellow');
   assert.equal(planned.snapshot().sessions[0].ask?.message, PLAN, 'the card says what it is waiting on');
+  hook(planned, 'planned', 'PostToolUse', { toolName: 'ExitPlanMode' });
+  assert.equal(status(planned, 'planned'), 'working', 'approved, it goes back to work');
+  assert.equal(planned.snapshot().sessions[0].ask, null, 'and the card goes with the question');
 
   console.log('Plan checks passed.');
 } finally {
