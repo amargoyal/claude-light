@@ -25,6 +25,8 @@ export interface HookEvent {
   toolName?: string;
   toolInput?: Record<string, unknown>;
   message?: string;
+  /** Claude Code's own kind for a Notification, e.g. `permission_prompt`. */
+  notificationType?: string;
   prompt?: string;
   reason?: string;
   /** The `claude` process the hook ran under, reported by the hook client. */
