@@ -55,6 +55,13 @@ try {
   hook(worded, 'worded', 'Notification', { message: PLAN });
   assert.equal(status(worded, 'worded'), 'asking', 'the plan wording alone is a question');
 
+  // The nudge a minute after a finished turn must stay the non-question it is.
+  const idle = fresh('idle');
+  hook(idle, 'idle', 'UserPromptSubmit');
+  hook(idle, 'idle', 'Stop');
+  hook(idle, 'idle', 'Notification', { message: 'Claude is waiting for your input', notificationType: 'idle_prompt' });
+  assert.equal(status(idle, 'idle'), 'done', 'an idle_prompt leaves a finished session red');
+
   console.log('Plan checks passed.');
 } finally {
   fs.rmSync(root, { recursive: true, force: true });
