@@ -428,6 +428,14 @@ function App() {
           >
             <Island snap={snap([askingTerminal])} hovering open />
           </Card>
+          <Card
+            title="The plan"
+            note="Plan mode is finished and Claude Code wants a yes before it starts. Yellow, like any other question."
+            w={600}
+            h={300}
+          >
+            <Island snap={snap([askingPlan])} hovering open />
+          </Card>
         </Band>
 
         <Band label="Several sessions · click into one">
