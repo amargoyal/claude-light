@@ -90,7 +90,7 @@ interface Live {
  *
  * The plan is the case that forced this. Finishing a plan in plan mode asks
  * "Claude Code needs your approval for the plan" — a question with numbered
- * choices like any other, but not in the words matched below, so the light
+ * choices like any other, in words the match below did not know, so the light
  * stayed green while the whole session waited on a yes.
  */
 function isPermissionAsk(message: string, type?: string): boolean {
