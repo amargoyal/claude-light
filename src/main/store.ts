@@ -96,8 +96,8 @@ interface Live {
 function isPermissionAsk(message: string, type?: string): boolean {
   if (type === 'permission_prompt') return true;
   const m = message.toLowerCase();
-  // "Claude needs your permission to use Bash"
   if (/needs? your approval for the plan/.test(m)) return true;
+  // "Claude needs your permission to use Bash"
   return /needs? your permission/.test(m) || /permission to (use|run)\b/.test(m);
 }
 
