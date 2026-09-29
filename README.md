@@ -189,6 +189,10 @@ anything yet — that one is deliberately ignored. It is not a question, it is a
 finished session whose user is reading the answer, and it used to leave every
 completed session yellow.
 
+The two are told apart by the `notification_type` Claude Code sends with each
+one: `permission_prompt` for a question, `idle_prompt` for the nudge. An older
+Claude Code that sends no type is read by its wording instead.
+
 The installer is idempotent, keeps every hook you already have, and writes a
 backup before it touches anything.
 
