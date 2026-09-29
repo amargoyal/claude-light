@@ -66,6 +66,15 @@ try {
   hook(busy, 'busy', 'Notification', { message: 'Claude is waiting for your input', notificationType: 'idle_prompt' });
   assert.equal(status(busy, 'busy'), 'working', 'an idle_prompt is no question mid-turn either');
 
+  // Turned down with Escape, no hook says so; the transcript moving on does.
+  const refused = fresh('refused');
+  hook(refused, 'refused', 'UserPromptSubmit');
+  hook(refused, 'refused', 'Notification', { message: PLAN, notificationType: 'permission_prompt' });
+  assert.equal(status(refused, 'refused'), 'asking');
+  const later = Date.now() + 5000;
+  refused.facts.set('refused', { ...facts('refused'), lastAt: later, mainLastAt: later });
+  assert.notEqual(status(refused, 'refused'), 'asking', 'a refused plan does not stay yellow');
+
   console.log('Plan checks passed.');
 } finally {
   fs.rmSync(root, { recursive: true, force: true });
