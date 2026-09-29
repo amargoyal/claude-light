@@ -81,6 +81,12 @@ interface Live {
  * than on loose keywords. The message is free text that can quote a tool name
  * or a command, so `includes('approve')` fired on notifications that were only
  * talking about approving something.
+ *
+ * Newer Claude Code also says what kind of notification it is, and that is
+ * better than any wording: every dialog waiting on a person is sent as a
+ * `permission_prompt`, while the nudge after a finished turn is an
+ * `idle_prompt`. The kind wins when it is there; the wording is for a Claude
+ * Code old enough not to send one.
  */
 function isPermissionAsk(message: string, type?: string): boolean {
   if (type === 'permission_prompt') return true;
