@@ -44,6 +44,7 @@ try {
   assert.equal(status(planned, 'planned'), 'working', 'writing the plan is work');
   hook(planned, 'planned', 'Notification', { message: PLAN, notificationType: 'permission_prompt' });
   assert.equal(status(planned, 'planned'), 'asking', 'a plan waiting for approval is yellow');
+  assert.equal(planned.snapshot().sessions[0].ask?.message, PLAN, 'the card says what it is waiting on');
 
   console.log('Plan checks passed.');
 } finally {
